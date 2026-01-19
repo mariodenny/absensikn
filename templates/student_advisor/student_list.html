@@ -1,0 +1,21 @@
+<h4>Joined Students</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.birth_date }}</td>
+            <td>{{ s.level }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

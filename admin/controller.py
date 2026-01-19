@@ -21,4 +21,4 @@ def get_db_connection():
     return conn
 
 def admin_dashboard():
-    
+    return "Hello!!"

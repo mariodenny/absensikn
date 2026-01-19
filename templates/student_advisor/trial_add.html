@@ -1,0 +1,21 @@
+<h4>Add Trial Student</h4>
+<form hx-post="{{ url_for('student_advisor.trial_add') }}"
+      hx-target="#sa-content" hx-swap="innerHTML">
+    <div class="mb-2">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Birth Date</label>
+        <input type="date" name="birth_date" class="form-control" required>
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Level</label>
+        <select name="level" class="form-select">
+            <option value="LK">LK (4-7)</option>
+            <option value="JK8">JK 8-12</option>
+            <option value="JK12">JK 12-16</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

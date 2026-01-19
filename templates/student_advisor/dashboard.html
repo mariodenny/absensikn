@@ -1,0 +1,130 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+{{ session['role'] }} - {{ session['name'] }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container mb-3">
+                        {% for category, msg in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ msg }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Header Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h1 class="h3 mb-2">Hello, {{ session['name'] }}</h1>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-person-badge"></i> Role: <span class="badge bg-primary">{{ session['role'] }}</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <button 
+                                class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" 
+                                hx-get="{{ url_for('student_advisor.trial_add') }}" 
+                                hx-target="#sa-content"
+                                hx-swap="innerHTML"
+                                hx-indicator="#loading-indicator">
+                                <i class="bi bi-person-plus-fill"></i>
+                                <span>Add Trial Student</span>
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <button 
+                                class="btn btn-secondary w-100 d-flex align-items-center justify-content-center gap-2" 
+                                hx-get="{{ url_for('student_advisor.trial_list') }}"
+                                hx-target="#sa-content"
+                                hx-swap="innerHTML"
+                                hx-indicator="#loading-indicator">
+                                <i class="bi bi-list-ul"></i>
+                                <span>Trial List</span>
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <button 
+                                class="btn btn-info w-100 d-flex align-items-center justify-content-center gap-2" 
+                                hx-get="{{ url_for('student_advisor.student_list') }}"
+                                hx-target="#sa-content"
+                                hx-swap="innerHTML"
+                                hx-indicator="#loading-indicator">
+                                <i class="bi bi-people-fill"></i>
+                                <span>Joined Students</span>
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <button 
+                                class="btn btn-warning w-100 d-flex align-items-center justify-content-center gap-2" 
+                                hx-get="{{ url_for('student_advisor.classroom_list') }}"
+                                hx-target="#sa-content"
+                                hx-swap="innerHTML"
+                                hx-indicator="#loading-indicator">
+                                <i class="bi bi-door-open-fill"></i>
+                                <span>Classrooms</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="card shadow-sm">
+                <div class="card-body position-relative">
+                    <!-- Loading Indicator -->
+                    <div id="loading-indicator" class="htmx-indicator position-absolute top-50 start-50 translate-middle">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Content -->
+                    <div id="sa-content" class="min-vh-50">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-arrow-up-circle display-1 mb-3"></i>
+                            <p class="lead">Select an option from the menu above to get started</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .htmx-indicator {
+        display: none;
+        z-index: 10;
+    }
+    
+    .htmx-request .htmx-indicator {
+        display: block;
+    }
+    
+    .htmx-request #sa-content {
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+    }
+
+    .min-vh-50 {
+        min-height: 50vh;
+    }
+</style>
+
+{% endblock %}

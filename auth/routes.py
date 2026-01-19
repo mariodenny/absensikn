@@ -20,7 +20,7 @@ def login():
             elif user['role'] == 'TEACHER':
                 return redirect(url_for('teacher.dashboard'))
             elif user['role'] == 'SA':
-                return redirect(url_for('sa.dashboard'))
+                return redirect(url_for('student_advisor.dashboard'))
             else:
                 return redirect(url_for('home'))
         else:

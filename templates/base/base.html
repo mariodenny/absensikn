@@ -18,7 +18,7 @@
         <button class="btn btn-primary"><i class="bi bi-wrench-adjustable"></i>testo</button>
     </div> -->
 
-    <div class="container mt-2 flex-grow-1">
+    <div class="container flex-grow-1">
         {% block nav %}
         {% if session.get('role') == 'ADMIN' %}
         {% include 'base/nav_admin.html' %}

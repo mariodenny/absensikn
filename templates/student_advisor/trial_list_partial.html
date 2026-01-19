@@ -1,0 +1,35 @@
+<h4>Trial Students</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Level</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.birth_date }}</td>
+            <td>{{ s.level }}</td>
+            <td>{{ s.status }}</td>
+            <td>
+                <form hx-post="{{ url_for('student_advisor.trial_update_status', student_id=s.id) }}"
+                      hx-target="#sa-content" hx-swap="innerHTML" class="d-inline">
+                    <select name="status" class="form-select form-select-sm d-inline w-auto">
+                        <option value="active" {% if s.status=='active' %}selected{% endif %}>Join</option>
+                        <option value="completed" {% if s.status=='completed' %}selected{% endif %}>Completed</option>
+                        <option value="cancel" {% if s.status=='cancel' %}selected{% endif %}>Cancel</option>
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-success">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

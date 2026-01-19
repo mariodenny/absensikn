@@ -1,4 +1,24 @@
 {% extends 'base/base.html' %}
+{% block title %}
+{{ session['role']}} - {{session['name'] }}
+{% endblock %}
+
 {% block content %}
+<div class="row mb-2 mt-2">
+    <div class="col-lg-12">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, msg in messages %}
+        <div class="alert alert-{{ category }}">{{ msg }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h1>Hello,Admin!</h1>
+        <p>Admin dashboard</p>
+    </div>
+</div>
+
+<div class="row">
     
+</div>
 {% endblock %}

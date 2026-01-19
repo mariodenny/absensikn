@@ -1,0 +1,23 @@
+<h4>Classrooms</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Module</th>
+            <th>Term</th>
+            <th>Teacher</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in classrooms %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.module_name }}</td>
+            <td>{{ c.term_label }}</td>
+            <td>{{ c.teacher_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
