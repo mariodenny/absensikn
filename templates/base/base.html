@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Welcome{% endblock %}-KN Medan Operational</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-icons/bootstrap-icons.min.css') }}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- <div class="container mb-2 mt-2">
+        <h1>Hello, Mom <3!</h1>
+        
+        <button class="btn btn-primary"><i class="bi bi-wrench-adjustable"></i>testo</button>
+    </div> -->
+
+    <div class="container mt-2 flex-grow-1">
+        {% block nav %}
+        {% if session.get('role') == 'ADMIN' %}
+        {% include 'base/nav_admin.html' %}
+        {% elif session.get('role') == 'SA' %}
+        {% include 'base/nav_sa.html' %}
+        {% elif session.get('role') == 'TEACHER' %}
+        {% include 'base/nav_teacher.html' %}
+        {% else %}
+        {% include 'base/nav.html' %}
+        {% endif %}
+        {% endblock %}
+
+        {% block content %}
+        <!-- nanti semua extend pakein row dan col biar ga nabark, tapi test dulu -->
+        {% endblock %}
+    </div>
+
+    <footer class="bg-light border-top mt-5">
+        <div class="container py-3 text-center text-muted">
+            <small>
+                <strong>© {{ year }} KN Medan Operational</strong>-<i>V.0.0.1</i>
+            </small>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='htmx/htmx.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+</body>
+
+</html>
