@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% block title %}Clasroom and Term{% endblock %}
+
+{% block content %}
+<div class="row mt-2 mb-2">
+    <div class="col">
+
+        <!-- Header -->
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <h1 class="h4 mb-1">Classroom & Term Management</h1>
+                <p class="text-muted mb-0">
+                    Role: <span class="badge bg-primary">{{ session['role'] }}</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex gap-2 mb-3 flex-wrap">
+            <button class="btn btn-outline-primary"
+                hx-get="/student_advisor/terms/create"
+                hx-target="#sa-content"
+                hx-swap="innerHTML">
+                ➕ Add Term
+            </button>
+
+            <button class="btn btn-outline-success"
+                hx-get="/student_advisor/classroom/create"
+                hx-target="#sa-content"
+                hx-swap="innerHTML">
+                🏫 Add Classroom
+            </button>
+
+            <button class="btn btn-outline-secondary"
+                hx-get="/student_advisor/classroom/by-term"
+                hx-target="#sa-content"
+                hx-swap="innerHTML">
+                📊 Check Class by Term
+            </button>
+        </div>
+
+        <!-- Dynamic Content -->
+        <div id="sa-content" class="card shadow-sm">
+            <div class="card-body text-muted">
+                Select menu above to continue.
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

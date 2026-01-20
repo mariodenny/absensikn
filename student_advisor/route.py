@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from student_advisor.controller import (
     add_trial_student, list_trial_students, update_trial_status,
-    list_joined_students, list_classrooms
+    list_joined_students, list_classrooms, create_new_classrooms
 )
 
 student_advisor_bp = Blueprint('student_advisor',__name__,url_prefix='/student_advisor', template_folder='templates')
@@ -9,6 +9,14 @@ student_advisor_bp = Blueprint('student_advisor',__name__,url_prefix='/student_a
 @student_advisor_bp.route("/dashboard", methods=["GET","POST"])
 def dashboard():
     return render_template("student_advisor/dashboard.html")
+
+@student_advisor_bp.route("/students", methods=["GET"])
+def students():
+    return render_template("student_advisor/student.html")
+
+@student_advisor_bp.route("/clasrooms", methods=["GET"])
+def classrooms():
+    return render_template("student_advisor/classroom.html")
 
 @student_advisor_bp.route('/trial/add', methods=['GET', 'POST'])
 def trial_add():
@@ -43,3 +51,12 @@ def student_list():
 def classroom_list():
     classrooms = list_classrooms()
     return render_template('student_advisor/classroom_list.html', classrooms=classrooms)
+
+@student_advisor_bp.route('/classroom/new', methods=['POST'])
+def new_classroom():
+    term_id = request.form.get('term_id')
+    module_id = request.form.get('module_id')
+    teacher_id = request.form.get('teacher_id')
+    name = request.form.get('name')
+    create_new_classrooms(term_id,module_id,teacher_id,name)
+    return render_template("")

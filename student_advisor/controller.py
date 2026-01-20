@@ -1,6 +1,7 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -9,6 +10,8 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 
+
+time_now = datetime.now
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -82,3 +85,24 @@ def list_classrooms():
     cursor.close()
     conn.close()
     return result
+
+def create_new_classrooms(term_id,module_id,teacher_id,name,max_sessions=20,created_at = time_now):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    sql ="insert into classes (term_id,module_id,teacher_id,name,max_sessions,created_at) values(%i,%i,%s,%i,NOW())"
+    cursor.execute(sql,(term_id,module_id,teacher_id,name,max_sessions,created_at))
+    classroom_id = cursor.lastrowid
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return classroom_id
+
+def list_teachers():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    sql = """
+        SELECT u.id , u.name , u.email
+
+    """
+
+
